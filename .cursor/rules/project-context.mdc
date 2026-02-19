@@ -1,0 +1,28 @@
+---
+alwaysApply: true
+---
+# LLM Queue Benchmark Agent Policy
+
+Workspace contains `llm-benchmark-client` (Python package `llm_bench`) and `llm-scheduler-server` (Python package `batching_scheduler`).
+
+Consult `readme.agents.md` BEFORE you:
+- Write or modify tests (tests encode invariants; keep docs and tests aligned).
+- Change data models, metrics math/semantics (TTFT/TPOT/latency/throughput), timestamps/time logic.
+- Touch module boundaries/responsibilities, CLI/env/HTTP interfaces, or extension points (schedulers, workloads, arrival patterns).
+- Alter any documented assumption in section 7 (invariants & assumptions).
+
+Skip consultation for:
+- Pure refactors with no behavior change, comments/docstrings, formatting/whitespace, or dependency bumps without API change.
+
+Behavioral expectations:
+
+1) Preserve the architectural separation between client harness and scheduler server.
+2) Prefer clarity and explicitness over abstraction.
+3) Keep metric naming and semantics consistent with the code.
+4) If metrics or performance look suspicious, verify definitions and plumbing before changing behavior.
+5) When assumptions are required, surface them explicitly and ask before committing.
+6) If `readme.agents.md` and source code differ, treat source code as primary and call out the discrepancy.
+7) All benchmark artifacts must be produced via the canonical `llm-benchmark-client` pipeline. Do not manually construct metrics, summaries, plots, or CSVs. Do not create ad-hoc scripts to simulate benchmark outputs.
+
+Environments:
+- Each repo has its own `.venv`; activate the matching venv before running tools in that repo.

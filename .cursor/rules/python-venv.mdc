@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+
+onCommand: |
+  if [ -f ".venv/bin/activate" ]; then
+      source .venv/bin/activate
+  fi
+onPython: |
+  import os, sys
+  venv_python = os.path.abspath(".venv/bin/python")
+  if os.path.exists(venv_python):
+      sys.executable = venv_python
