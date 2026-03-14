@@ -2,6 +2,16 @@
 
 Scope: Canonical usage patterns for benchmark execution and artifact generation.
 
+## Recipe 0: Recruiter-Friendly Quick Sweep
+
+Goal: provide a low-friction, copy/paste sweep that validates end-to-end benchmark execution.
+
+Pattern:
+- Start server with a minimal custom runtime configuration.
+- Run client with `--sweep`, a short horizon, and a small lambda set.
+- Validate `sweep_raw.csv`, `sweep_summary.csv`, and `capacity_curve.png`.
+- Use this as a demonstration path before deeper tuning.
+
 ## Recipe 1: Basic Single Run
 
 Goal: produce one run with request-level and summary artifacts.

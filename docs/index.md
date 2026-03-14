@@ -80,6 +80,7 @@ Read in this order:
 
 ### Operations
 - `operations/local-dev.md`
+- `operations/vllm-gpu-settings.md`
 - `operations/benchmark-recipes.md`
 - `operations/debugging-playbooks.md`
 - `operations/release-checklist.md`

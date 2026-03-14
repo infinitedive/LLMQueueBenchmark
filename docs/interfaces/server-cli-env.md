@@ -24,7 +24,15 @@ Scope: `llm-scheduler-server` process configuration via CLI arguments and enviro
 - `--vllm-host`, `--vllm-port`: Spawned vLLM host/port controls.
 - `--vllm-base-url`: Target URL used by server-side proxy forwarding (defaults from host/port).
 - `--vllm-launch-arg`: Extra launch argument passed to spawned vLLM subprocess (repeatable).
+  - For launch-arg values beginning with `--`, prefer `--vllm-launch-arg=<value>` form (for example `--vllm-launch-arg=--dtype`) to avoid argparse ambiguity.
 - `--vllm-mode`: deprecated compatibility flag; accepted for one release and normalized to spawn-only runtime behavior.
+
+### vLLM GPU Capability Notes
+
+- `bfloat16` generally requires NVIDIA compute capability >= 8.0.
+- Older GPUs should use `--vllm-launch-arg=--dtype --vllm-launch-arg=half`.
+- If startup reports insufficient free memory, reduce `--gpu-memory-utilization` via launch args.
+- See `docs/operations/vllm-gpu-settings.md` for validated preset profiles.
 
 ## Environment Contract
 
