@@ -57,6 +57,18 @@ Pattern:
 - Run benchmark with telemetry polling enabled.
 - Inspect `server_metrics_timeseries.csv` and summary metadata.
 
+## Recipe 6: ML Systems Report Matrix + RQ Tables
+
+Goal: execute the report condition matrix and produce RQ1/RQ2/RQ3 analysis tables.
+
+Pattern:
+- Follow condition matrix and fairness controls from `docs/operations/ml-sys-report-methodology.md`.
+- Run one sweep per mode (`custom_naive`, `custom_dynamic`, `vllm`) using matched client settings.
+- Validate expected sweep and per-run artifacts before interpretation.
+- Generate report tables/summary with:
+  - `python -m llm_bench.analysis.mlsys_report --mode ... --outdir ...`
+- Keep metric attribution explicit (client-derived vs server-derived) in all report claims.
+
 ## Output Validation Checklist
 
 - Artifact directory structure matches `docs/data-models/run-artifacts.md`.
@@ -69,3 +81,4 @@ Pattern:
 - `docs/interfaces/client-cli.md`
 - `docs/interfaces/http-api.md`
 - `docs/principles/artifact-contract.md`
+- `docs/operations/ml-sys-report-methodology.md`
