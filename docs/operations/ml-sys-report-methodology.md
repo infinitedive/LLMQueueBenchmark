@@ -89,6 +89,12 @@ Tasks:
 - `custom + dynamic`: see `docs/operations/local-dev.md`
 - `vllm`: see `docs/operations/vllm-gpu-settings.md`
 
+For report reproducibility, use an explicit 3-tier dynamic profile for `custom_dynamic`:
+- `--dynamic-bs-min 2 --dynamic-bs-mid 16 --dynamic-bs-max 32`
+- `--dynamic-q1 2 --dynamic-q2 16`
+- `--dynamic-timeout-min-ms 2 --dynamic-timeout-mid-ms 12 --dynamic-timeout-max-ms 30`
+- `--dynamic-max-wait-ms 150`
+
 ### Matrix command planner/runner
 
 From `llm-benchmark-client`:

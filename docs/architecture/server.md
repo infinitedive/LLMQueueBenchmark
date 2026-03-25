@@ -50,7 +50,10 @@ All modes share API boundary obligations and observability expectations.
 
 - Batch-release timing authority belongs to scheduler policy, not to a fixed server polling interval.
 - The server may orchestrate wakeups and execution, but it must honor scheduler-provided release deadlines.
+- Scheduler timeout/deadline comparisons use a monotonic clock basis to avoid wall-clock drift effects.
 - Dynamic low-load policy must preserve a nonzero accumulation opportunity before sparse arrivals are released.
+- Dynamic scheduler policy is three-tier (low/mid/high) and must preserve monotone threshold ordering (`q1 < q2`).
+- Dynamic tier targets must remain monotone across tiers (`bs_min <= bs_mid <= bs_max`, `timeout_min_ms <= timeout_mid_ms <= timeout_max_ms`).
 - Bounded completion still applies: timeout and max-wait caps can release underfilled batches when deadlines are reached.
 
 ## Related Docs

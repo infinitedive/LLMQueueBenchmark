@@ -12,11 +12,32 @@ Scope: `llm-scheduler-server` process configuration via CLI arguments and enviro
 - `--scheduler`: Scheduler selection for custom runtime (`naive`, `dynamic`).
 - `--max-batch-size`: Upper bound for batch size in custom scheduling path.
 - `--batch-timeout`: Wait threshold for batch formation.
+- Dynamic scheduler arguments:
+  - `--dynamic-bs-min`, `--dynamic-bs-mid`, `--dynamic-bs-max`
+  - `--dynamic-q1`, `--dynamic-q2`
+  - `--dynamic-timeout-min-ms`, `--dynamic-timeout-mid-ms`, `--dynamic-timeout-max-ms`
+  - `--dynamic-max-wait-ms`
 - `--model-name`: Inference model identifier.
 - `--tokenizer-name`: Optional tokenizer override.
 - `--device`: Target device configuration for model execution.
 - `--host`, `--port`: Server bind settings.
 - Logging-related options for level and formatting.
+
+### Dynamic Scheduler Tier Contract
+
+- Dynamic scheduler uses a three-tier queue-depth policy:
+  - low tier: `queue_len < q1` -> `(bs_min, timeout_min_ms)`
+  - mid tier: `q1 <= queue_len < q2` -> `(bs_mid, timeout_mid_ms)`
+  - high tier: `queue_len >= q2` -> `(bs_max, timeout_max_ms)`
+- If any mid-tier values are omitted, the server derives sane defaults:
+  - `bs_mid = floor((bs_min + bs_max) / 2)`
+  - `q2 = max(q1 + 1, bs_mid)`
+  - `timeout_mid_ms = (timeout_min_ms + timeout_max_ms) / 2`
+- Monotone invariants are required and validated at startup:
+  - `q2 > q1`
+  - `bs_min <= bs_mid <= bs_max`
+  - `timeout_min_ms <= timeout_mid_ms <= timeout_max_ms`
+  - `max_wait_ms > 0`
 
 ## vLLM Integration Arguments
 

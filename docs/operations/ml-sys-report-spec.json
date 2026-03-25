@@ -41,6 +41,17 @@
         "mode_id": "custom_dynamic",
         "server_runtime": "custom",
         "server_scheduler": "dynamic",
+        "server_dynamic_profile": {
+          "dynamic_bs_min": 2,
+          "dynamic_bs_mid": 16,
+          "dynamic_bs_max": 32,
+          "dynamic_q1": 2,
+          "dynamic_q2": 16,
+          "dynamic_timeout_min_ms": 2,
+          "dynamic_timeout_mid_ms": 12,
+          "dynamic_timeout_max_ms": 30,
+          "dynamic_max_wait_ms": 150
+        },
         "outdir": "report_runs/custom_dynamic"
       },
       {
