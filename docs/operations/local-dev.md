@@ -61,7 +61,7 @@ python -m batching_scheduler \
   --scheduler dynamic \
   --model-name TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
   --max-batch-size 32 \
-  --dynamic-bs-min 1 \
+  --dynamic-bs-min 2 \
   --dynamic-bs-max 32 \
   --dynamic-q1 2 \
   --dynamic-timeout-min-ms 2 \

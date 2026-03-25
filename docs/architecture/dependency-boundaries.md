@@ -34,6 +34,7 @@ Rules:
 - `server` owns HTTP boundary and runtime wiring.
 - `schedulers` and `engine` are internal execution policy/mechanism layers.
 - `utils` provides foundational capabilities without owning endpoint semantics.
+- Batch-release timing policy is scheduler-owned; server loop mechanics must not become the effective release-time authority.
 
 ## API Boundary Ownership
 

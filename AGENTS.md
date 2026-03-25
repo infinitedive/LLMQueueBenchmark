@@ -78,6 +78,7 @@ Use this section to find required context before making changes.
 - Scheduling/batching behavior:
   - `docs/architecture/server.md`
   - `docs/architecture/dependency-boundaries.md`
+  - Scheduler invariants are documented in `docs/architecture/server.md` (`Scheduler Invariants`).
 - Load generation/arrival/workload behavior:
   - `docs/architecture/client.md`
   - `docs/architecture/end-to-end-flow.md`

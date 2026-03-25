@@ -46,6 +46,13 @@ All modes share API boundary obligations and observability expectations.
 - Internal scheduler/engine details should not leak as undocumented API assumptions.
 - Metrics and streaming behavior changes must preserve published contracts or ship with coordinated migration updates.
 
+## Scheduler Invariants
+
+- Batch-release timing authority belongs to scheduler policy, not to a fixed server polling interval.
+- The server may orchestrate wakeups and execution, but it must honor scheduler-provided release deadlines.
+- Dynamic low-load policy must preserve a nonzero accumulation opportunity before sparse arrivals are released.
+- Bounded completion still applies: timeout and max-wait caps can release underfilled batches when deadlines are reached.
+
 ## Related Docs
 
 - `docs/interfaces/server-cli-env.md`
