@@ -69,6 +69,16 @@ Pattern:
   - `python -m llm_bench.analysis.mlsys_report --mode ... --outdir ...`
 - Keep metric attribution explicit (client-derived vs server-derived) in all report claims.
 
+## Recipe 7: Dev Cadence Matrix (Balanced)
+
+Goal: run a faster matrix loop for development and debugging before full production sweeps.
+
+Pattern:
+- Use dev spec: `docs/operations/ml-sys-report-spec.dev.json`.
+- Run `report_matrix` with the dev spec to reduce horizon/lambda/repeats.
+- Write outputs to `report_runs_dev/*` to avoid mixing with production artifacts.
+- Validate and analyze with the same `mlsys_report` command pattern, pointing to dev output paths.
+
 ## Output Validation Checklist
 
 - Artifact directory structure matches `docs/data-models/run-artifacts.md`.

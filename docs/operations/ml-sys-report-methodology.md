@@ -40,6 +40,7 @@ Notes:
 
 The machine-readable fairness lock is stored in:
 - `docs/operations/ml-sys-report-spec.json`
+- `docs/operations/ml-sys-report-spec.dev.json` (balanced dev cadence)
 
 ## Agent Execution Workflow
 
@@ -107,6 +108,34 @@ python -m llm_bench.cli.report_matrix \
 ```
 
 Remove `--dry-run` to execute client benchmark commands for the selected phase/modes.
+
+### Dev Mode (Balanced Iteration)
+
+Use dev mode when you need faster iteration on orchestration and analysis wiring.
+
+Dev profile differences vs production:
+- Poisson horizon: `30` seconds
+- Poisson lambdas: `1 2 4 8`
+- Poisson repeats: `2`
+- Closed-loop repeats: `1`
+- Outputs are written under `report_runs_dev/*`
+
+Dry-run dev commands:
+
+```bash
+python -m llm_bench.cli.report_matrix \
+  --spec ../docs/operations/ml-sys-report-spec.dev.json \
+  --phase all \
+  --dry-run
+```
+
+Execute dev Poisson matrix:
+
+```bash
+python -m llm_bench.cli.report_matrix \
+  --spec ../docs/operations/ml-sys-report-spec.dev.json \
+  --phase poisson
+```
 
 ### Client sweep template (Poisson)
 

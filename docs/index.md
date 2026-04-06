@@ -84,6 +84,7 @@ Read in this order:
 - `operations/benchmark-recipes.md`
 - `operations/ml-sys-comparison-validity-checklist.md`
 - `operations/ml-sys-report-methodology.md`
+- `operations/ml-sys-report-spec.dev.json` (dev-mode config)
 - `operations/ml-sys-report-template.md`
 - `operations/debugging-playbooks.md`
 - `operations/release-checklist.md`
