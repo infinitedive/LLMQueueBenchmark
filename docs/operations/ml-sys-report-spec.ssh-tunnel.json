@@ -1,0 +1,95 @@
+{
+  "report_id": "mlsys_portfolio_ssh_tunnel_205_196_144_74",
+  "fairness_controls": {
+    "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "tokenizer": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "workload": "demo",
+    "num_prompts": 20,
+    "min_prompt_toks": 128,
+    "max_prompt_toks": 2048,
+    "seed": 42,
+    "max_tokens": 128,
+    "max_concurrent": 64,
+    "warmup_s": 10,
+    "cooldown_s": 10,
+    "window_s": 1.0,
+    "metrics_interval_s": 0.5,
+    "api_url": "http://127.0.0.1:8000/v1",
+    "metrics_url": "http://127.0.0.1:8000/metrics"
+  },
+  "poisson_matrix": {
+    "arrival": "poisson",
+    "horizon_s": 90,
+    "sweep_lambdas": [
+      1,
+      2,
+      4,
+      8,
+      12,
+      16,
+      24
+    ],
+    "sweep_repeats": 5,
+    "modes": [
+      {
+        "mode_id": "custom_naive",
+        "server_runtime": "custom",
+        "server_scheduler": "naive",
+        "outdir": "report_runs/custom_naive"
+      },
+      {
+        "mode_id": "custom_dynamic",
+        "server_runtime": "custom",
+        "server_scheduler": "dynamic",
+        "server_dynamic_profile": {
+          "dynamic_bs_min": 2,
+          "dynamic_bs_mid": 16,
+          "dynamic_bs_max": 32,
+          "dynamic_q1": 2,
+          "dynamic_q2": 16,
+          "dynamic_timeout_min_ms": 2,
+          "dynamic_timeout_mid_ms": 12,
+          "dynamic_timeout_max_ms": 30,
+          "dynamic_max_wait_ms": 150
+        },
+        "outdir": "report_runs/custom_dynamic"
+      },
+      {
+        "mode_id": "vllm",
+        "server_runtime": "vllm",
+        "server_scheduler": null,
+        "outdir": "report_runs/vllm"
+      }
+    ]
+  },
+  "closed_loop_controls": {
+    "arrival": "closed",
+    "iterations": 20,
+    "repeats": 3,
+    "modes": [
+      {
+        "mode_id": "custom_dynamic_closed",
+        "server_runtime": "custom",
+        "server_scheduler": "dynamic",
+        "outdir": "report_runs/controls/custom_dynamic_closed"
+      },
+      {
+        "mode_id": "vllm_closed",
+        "server_runtime": "vllm",
+        "server_scheduler": null,
+        "outdir": "report_runs/controls/vllm_closed"
+      }
+    ]
+  },
+  "saturation_rule": {
+    "min_throughput_ratio": 0.8,
+    "min_latency_growth_ratio": 1.2
+  },
+  "vllm_profile_disclosure": {
+    "required_fields": [
+      "dtype",
+      "gpu_memory_utilization",
+      "vllm_launch_args"
+    ]
+  }
+}

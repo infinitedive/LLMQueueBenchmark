@@ -79,6 +79,42 @@ Pattern:
 - Write outputs to `report_runs_dev/*` to avoid mixing with production artifacts.
 - Validate and analyze with the same `mlsys_report` command pattern, pointing to dev output paths.
 
+## Recipe 8: One-Command Portfolio Repro (Naive + Dynamic)
+
+Goal: run a fully reproducible portfolio workflow in one command without vLLM.
+
+Pattern:
+- Start custom+naive server, run client sweep (`lambda = [1, 2, 4]`, repeats `2`), stop server.
+- Start custom+dynamic server with fixed dynamic profile, run same sweep, stop server.
+- Run `mlsys_report` in no-vLLM mode (`--allow-missing-vllm`).
+- Print naive/dynamic/report output directories at the end.
+
+Command:
+
+```bash
+python -m llm_bench.cli.portfolio_run
+```
+
+## Recipe 8: Remote Server Matrix Execution
+
+Goal: run the report matrix from this machine against a remote inference server.
+
+Pattern:
+- Use remote spec: `docs/operations/ml-sys-report-spec.remote.json`.
+- Keep fairness controls identical to production spec; only remote endpoint URLs differ.
+- Plan with `--dry-run`, then execute `--phase all` for the full matrix.
+- If remote metrics/API are not directly reachable, establish SSH port forwarding before client runs.
+
+## Recipe 9: SSH Tunnel Matrix Execution
+
+Goal: run matrix benchmarks through an SSH tunnel when only SSH is exposed.
+
+Pattern:
+- Start tunnel from WSL using Windows-hosted key path (example):
+  - `ssh -i /mnt/c/Users/garuc/.ssh/id_rsa -o IdentitiesOnly=yes -p 11296 -L 8000:127.0.0.1:8000 root@205.196.144.74`
+- Use tunnel spec: `docs/operations/ml-sys-report-spec.ssh-tunnel.json`.
+- Run mode-specific matrix with `report_matrix --mode-id ...` or full run with `--phase all`.
+
 ## Output Validation Checklist
 
 - Artifact directory structure matches `docs/data-models/run-artifacts.md`.

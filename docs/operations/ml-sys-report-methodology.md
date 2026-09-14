@@ -41,6 +41,8 @@ Notes:
 The machine-readable fairness lock is stored in:
 - `docs/operations/ml-sys-report-spec.json`
 - `docs/operations/ml-sys-report-spec.dev.json` (balanced dev cadence)
+- `docs/operations/ml-sys-report-spec.remote.json` (remote-host matrix target)
+- `docs/operations/ml-sys-report-spec.ssh-tunnel.json` (SSH tunnel target via localhost)
 
 ## Agent Execution Workflow
 
@@ -135,6 +137,55 @@ Execute dev Poisson matrix:
 python -m llm_bench.cli.report_matrix \
   --spec ../docs/operations/ml-sys-report-spec.dev.json \
   --phase poisson
+```
+
+### Remote Server Mode
+
+Use remote mode when the benchmark client runs on one host and the inference server is exposed on
+another host.
+
+For the current remote endpoint:
+- API URL: `http://205.196.144.74:8000/v1`
+- Metrics URL: `http://205.196.144.74:8000/metrics`
+- Spec file: `docs/operations/ml-sys-report-spec.remote.json`
+
+Dry-run remote matrix:
+
+```bash
+python -m llm_bench.cli.report_matrix \
+  --spec ../docs/operations/ml-sys-report-spec.remote.json \
+  --phase all \
+  --dry-run
+```
+
+Execute remote matrix:
+
+```bash
+python -m llm_bench.cli.report_matrix \
+  --spec ../docs/operations/ml-sys-report-spec.remote.json \
+  --phase all
+```
+
+### SSH Tunnel Mode (WSL + Windows key path)
+
+Use tunnel mode when SSH is reachable but API/metrics ports are not directly reachable.
+
+Start tunnel (keep this terminal open):
+
+```bash
+ssh -i /mnt/c/Users/garuc/.ssh/id_rsa \
+  -o IdentitiesOnly=yes \
+  -p 11296 \
+  -L 8000:127.0.0.1:8000 \
+  root@205.196.144.74
+```
+
+Run matrix from `llm-benchmark-client` using tunnel spec:
+
+```bash
+python -m llm_bench.cli.report_matrix \
+  --spec ../docs/operations/ml-sys-report-spec.ssh-tunnel.json \
+  --phase all
 ```
 
 ### Client sweep template (Poisson)
