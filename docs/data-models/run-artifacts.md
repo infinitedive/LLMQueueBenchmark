@@ -26,6 +26,13 @@ Expected files:
 - `capacity_curve.png`
 - `lambda{lambda}_rep{repeat}/` per-run subdirectories with standard run artifacts
 
+## Supplemental Execution Provenance
+
+Attach an [experiment state record](experiment-state.md) to new experiments to
+identify KB/client/server revisions, local changes, and effective configuration.
+It is maintained separately from metric generation; the existing client does not
+yet emit it automatically. Existing run files and their schemas are unchanged.
+
 ## Artifact Ownership
 
 - Client pipeline is the sole producer of benchmark artifacts.

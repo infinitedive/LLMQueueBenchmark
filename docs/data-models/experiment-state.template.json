@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "experiment_id": null,
+  "captured_at_utc": null,
+  "record_status": "template",
+  "repositories": {
+    "kb": {
+      "repository": "https://github.com/infinitedive/LLMQueueBenchmark",
+      "workspace_path": ".",
+      "commit": null,
+      "dirty": null,
+      "changes_ref": null
+    },
+    "client": {
+      "repository": "https://github.com/Mentiforce-013/llm-benchmark-client",
+      "workspace_path": "llm-benchmark-client",
+      "commit": null,
+      "dirty": null,
+      "changes_ref": null
+    },
+    "server": {
+      "repository": "https://github.com/Mentiforce-013/llm-scheduler-server",
+      "workspace_path": "llm-scheduler-server",
+      "commit": null,
+      "dirty": null,
+      "changes_ref": null
+    }
+  },
+  "configuration": {
+    "source": {
+      "repository": "kb",
+      "path": null,
+      "commit": null
+    },
+    "executed_snapshot_ref": null,
+    "executed_snapshot_sha256": null,
+    "launch_commands_ref": null
+  },
+  "environment": {
+    "client_dependencies_ref": null,
+    "server_dependencies_ref": null,
+    "hardware_runtime_ref": null
+  },
+  "artifacts_ref": null,
+  "missing_evidence": []
+}

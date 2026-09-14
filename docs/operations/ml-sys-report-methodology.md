@@ -57,6 +57,10 @@ Choose the work decomposition and order based on the uncertainty. The previous
 runner/validator/analytics/writer roles are not required. A full matrix is
 appropriate only when it can answer the current question.
 
+Capture repository and execution provenance using the
+[experiment state record](../data-models/experiment-state.md). The template is
+supplemental metadata to populate at execution time, not an automatic capture tool.
+
 A completed comparison includes:
 - Code commits for both components, any local changes, dependency versions,
   model/tokenizer revisions, hardware, runtime flags, and the executed protocol.

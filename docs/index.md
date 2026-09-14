@@ -70,6 +70,7 @@ Relevant references:
 - `interfaces/http-api.md`
 
 ### Data Models
+- [Experiment state record](data-models/experiment-state.md)
 - `data-models/requestrecord.md`
 - `data-models/run-artifacts.md`
 - `data-models/telemetry-schema.md`
