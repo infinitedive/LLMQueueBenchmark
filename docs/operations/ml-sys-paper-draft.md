@@ -1,5 +1,11 @@
 # ML Systems Benchmarking Under Controlled Poisson Load
 
+> Status (2026-09-14): historical material under execution-validity review.
+> Numeric content is preserved. Artifact provenance does not establish isolated
+> scheduling effects. The inspected streaming path executes requests serially;
+> its correspondence to these historical runs is unresolved. See
+> [current state](../current-state.md) before reusing comparative claims.
+
 ## Abstract
 
 This paper reports a controlled ML systems comparison across three inference modes:

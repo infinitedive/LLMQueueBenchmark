@@ -7,6 +7,15 @@ Use this checklist before accepting any cross-mode result (tables, plots, or cla
 
 If any critical check fails, mark the comparison as invalid or conditional.
 
+## Execution Evidence (Critical for the Claim Being Made)
+
+- [ ] Record exact client/server commits, local changes, dependency versions, and executed configuration.
+- [ ] Verify request flags reach the intended runtime path (including streaming).
+- [ ] For batching claims, observe actual model tensor batch size and compare it with scheduler release size.
+- [ ] Verify effective prompt truncation, token limits, decoding settings, and token-count semantics across conditions.
+- [ ] Isolate scheduler policy using a common executor, or label the comparison as a whole-system comparison.
+- [ ] Link these checks to tests, traces, or run records; a checklist declaration alone is insufficient.
+
 ## A. Must-Be-Fixed Controls (Critical)
 
 - [ ] **Model parity:** identical model identifier and revision across compared runs.

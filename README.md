@@ -7,7 +7,8 @@ This workspace hosts a two-repository benchmark system for LLM serving:
 
 The canonical docs live under `docs/`:
 
-- Start here: `docs/index.md`
+- Current investigation: [docs/current-state.md](docs/current-state.md)
+- Reference index: `docs/index.md`
 - Local runbook: `docs/operations/local-dev.md`
 - Benchmark recipes: `docs/operations/benchmark-recipes.md`
 
@@ -24,4 +25,6 @@ Use the exact copy/paste commands in `docs/operations/local-dev.md` under the re
 
 ## Workspace Note
 
-Each component repo has its own Git history and packaging metadata.
+Clone the component repositories inside this parent workspace. Each component
+retains its own Git history and packaging metadata; this repository holds the
+separately maintained KB. Agent guidance starts in `AGENTS.md`.

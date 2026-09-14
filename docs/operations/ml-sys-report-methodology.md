@@ -11,9 +11,12 @@ This playbook is designed for agent execution and reproducible analysis using th
 2. At what load levels do LLM inference systems reach saturation?
 3. How does a custom scheduler compare to vLLM under identical workload conditions?
 
-## Condition Matrix (Finalized)
+## Recorded Condition Matrix
 
-All conditions below are run with the same model/hardware and fixed fairness controls.
+The protocol intends the controls below to be held fixed. Their presence in a
+specification does not establish that each runtime implemented them identically.
+See [current state](../current-state.md) for the open execution-validity review.
+The existing matrix and numerical settings are retained for reproducibility.
 
 | Condition ID | Runtime Mode | Scheduler | Arrival | Lambda Grid (rps) | Repeats | Horizon (s) | Max Concurrent | Purpose |
 |---|---|---|---|---|---:|---:|---:|---|
@@ -44,45 +47,34 @@ The machine-readable fairness lock is stored in:
 - `docs/operations/ml-sys-report-spec.remote.json` (remote-host matrix target)
 - `docs/operations/ml-sys-report-spec.ssh-tunnel.json` (SSH tunnel target via localhost)
 
-## Agent Execution Workflow
+## Research Outcome and Completion
 
-### Agent A: Experiment Runner
+Determine which claims the comparison supports. Establish what each condition
+actually executes, distinguish measured outcomes from causal explanations, and
+identify confounds relevant to the research question.
 
-Tasks:
-- Execute all matrix conditions in `docs/operations/ml-sys-report-spec.json`.
-- Write sweep artifacts into a mode-specific directory:
-  - `report_runs/custom_naive/`
-  - `report_runs/custom_dynamic/`
-  - `report_runs/vllm/`
-- For closed-loop controls, write runs under:
-  - `report_runs/controls/custom_dynamic_closed/`
-  - `report_runs/controls/vllm_closed/`
+Choose the work decomposition and order based on the uncertainty. The previous
+runner/validator/analytics/writer roles are not required. A full matrix is
+appropriate only when it can answer the current question.
 
-### Agent B: Artifact Validator
+A completed comparison includes:
+- Code commits for both components, any local changes, dependency versions,
+  model/tokenizer revisions, hardware, runtime flags, and the executed protocol.
+- Evidence that the intended variable reaches execution. For batching, distinguish
+  scheduler release size from the tensor batch dimension at model invocation.
+- Canonical run artifacts and RQ summaries, with client/server metric ownership
+  explicit. File presence establishes completeness, not experimental validity.
+- A bounded conclusion, relevant limitations, and unresolved questions. If the
+  available evidence cannot settle the question, specify the smallest useful
+  follow-up experiment and record what prevented its execution.
 
-Tasks:
-- Validate required sweep outputs:
-  - `sweep_raw.csv`
-  - `sweep_summary.csv`
-  - `capacity_curve.png`
-- Validate per-lambda subdirectories exist for all repeats.
-- Validate run-level required files in each subdirectory:
-  - `requests.jsonl`, `requests.csv`, `summary.json`, `summary.md`,
-  - `throughput_latency_timeseries.csv`, `per_bin_summary.csv`.
+Preserve established output contracts: mode-specific runs, including controls,
+feed the canonical analysis pipeline described below. Keep historical outputs
+separate from new experiments.
 
-### Agent C: RQ Analytics Generator
-
-Tasks:
-- Build RQ-specific tables and derived conclusions from canonical sweep artifacts.
-- Keep metric ownership explicit:
-  - client-owned: TTFT, TPOT, total latency, req/s, tok/s.
-  - server-owned: queue/batch/GPU telemetry.
-
-### Agent D: Interpretation Writer
-
-Tasks:
-- Generate report-ready interpretation text and threats-to-validity notes.
-- Include config-profile disclosures (runtime, scheduler, vLLM launch args, hardware constraints).
+For policy-only claims, hold the executor fixed. A custom-runtime versus vLLM
+comparison measures whole serving systems unless execution differences are
+controlled or explicitly included in the claim.
 
 ## Canonical Commands
 

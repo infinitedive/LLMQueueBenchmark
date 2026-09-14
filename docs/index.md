@@ -4,56 +4,58 @@ This is the canonical navigation hub for repository knowledge.
 
 Use this file to find the single source of truth for architecture, interfaces, metrics semantics, data models, operations, and planning.
 
-## Start Here
+## Orientation
 
-1. Read `../AGENTS.md` for high-level routing rules.
-2. Read `../ARCHITECTURE.md` for system context and package layering.
-3. Use the task-based routes below to find the exact authoritative document.
+- [Agent entry point](../AGENTS.md): purpose and working contract.
+- [Current state](current-state.md): investigation status and evidence.
+- [Architecture](../ARCHITECTURE.md): intended system boundaries.
+
+Use the references relevant to the task; the lists below are not reading orders.
 
 ## Task-Based Routes
 
 ### I am changing metrics or timing semantics
 
-Read in this order:
-1. `principles/metrics-semantics.md`
-2. `data-models/requestrecord.md`
-3. `data-models/telemetry-schema.md`
-4. `architecture/end-to-end-flow.md`
+Relevant references:
+- `principles/metrics-semantics.md`
+- `data-models/requestrecord.md`
+- `data-models/telemetry-schema.md`
+- `architecture/end-to-end-flow.md`
 
 ### I am changing HTTP/API behavior
 
-Read in this order:
-1. `interfaces/http-api.md`
-2. `architecture/server.md`
-3. `architecture/dependency-boundaries.md`
+Relevant references:
+- `interfaces/http-api.md`
+- `architecture/server.md`
+- `architecture/dependency-boundaries.md`
 
 ### I am changing CLI arguments or environment variables
 
-Read in this order:
-1. `interfaces/client-cli.md` or `interfaces/server-cli-env.md`
-2. `architecture/client.md` or `architecture/server.md`
-3. `principles/client-server-separation.md`
+Relevant references:
+- `interfaces/client-cli.md` or `interfaces/server-cli-env.md`
+- `architecture/client.md` or `architecture/server.md`
+- `principles/client-server-separation.md`
 
 ### I am changing artifact outputs, reports, or schemas
 
-Read in this order:
-1. `principles/artifact-contract.md`
-2. `data-models/run-artifacts.md`
-3. `architecture/end-to-end-flow.md`
+Relevant references:
+- `principles/artifact-contract.md`
+- `data-models/run-artifacts.md`
+- `architecture/end-to-end-flow.md`
 
 ### I am changing scheduling, batching, or inference behavior
 
-Read in this order:
-1. `architecture/server.md`
-2. `architecture/dependency-boundaries.md`
-3. `principles/client-server-separation.md`
+Relevant references:
+- `architecture/server.md`
+- `architecture/dependency-boundaries.md`
+- `principles/client-server-separation.md`
 
 ### I am changing load generation, arrival, or workloads
 
-Read in this order:
-1. `architecture/client.md`
-2. `architecture/end-to-end-flow.md`
-3. `principles/client-server-separation.md`
+Relevant references:
+- `architecture/client.md`
+- `architecture/end-to-end-flow.md`
+- `principles/client-server-separation.md`
 
 ## Documentation Map
 
@@ -79,6 +81,8 @@ Read in this order:
 - `architecture/dependency-boundaries.md`
 
 ### Operations
+- `operations/ml-sys-paper-claim-ledger.md` (historical numeric provenance; see current status)
+- `operations/ml-sys-paper-draft.md` (draft; see current status)
 - `operations/local-dev.md`
 - `operations/vllm-gpu-settings.md`
 - `operations/benchmark-recipes.md`
@@ -93,7 +97,8 @@ Read in this order:
 - `operations/release-checklist.md`
 
 ### Planning
-- `plans/active/`
+- [Current state](current-state.md)
+- `plans/active/` (create when a task needs a persistent execution plan)
 - `plans/completed/`
 - `plans/tech-debt.md`
 
@@ -101,14 +106,12 @@ Read in this order:
 - `references/llm-benchmark-client-map.md`
 - `references/llm-scheduler-server-map.md`
 
-## Update Rules
+## Maintenance
 
-When behavior changes:
-1. Update the relevant detailed doc first (principle/interface/data model/architecture).
-2. Update `../AGENTS.md` only if routing or global rules changed.
-3. Update `../ARCHITECTURE.md` only if top-level domain boundaries or package layering changed.
-
-If code and docs conflict, code is temporary source of truth until docs are corrected in the same change stream.
+Update the specific document whose contract changed. Update the agent entry
+point only for shared guidance or routing changes. Implementation facts and
+intended contracts can disagree; record and resolve the discrepancy.
+Completed plans and the legacy mapping below provide historical context.
 
 ## Legacy Mapping (from `readme.agents.md`)
 

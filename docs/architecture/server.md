@@ -56,6 +56,20 @@ All modes share API boundary obligations and observability expectations.
 - Dynamic tier targets must remain monotone across tiers (`bs_min <= bs_mid <= bs_max`, `timeout_min_ms <= timeout_mid_ms <= timeout_max_ms`).
 - Bounded completion still applies: timeout and max-wait caps can release underfilled batches when deadlines are reached.
 
+## Inference Execution Contract
+
+For an experiment about inference batching, compatible requests released together
+must reach the model as a tensor batch. Record any split caused by incompatible
+generation settings. Queue release size alone does not demonstrate this property.
+
+Static batching may wait for the active model call while new arrivals queue.
+Streaming concerns output delivery and must not silently change the experimental
+execution unit to sequential single-request generation.
+
+These are intended research requirements. The inspected streaming implementation
+violates them; a candidate patch exists but remains unvalidated. See
+[current state](../current-state.md) for exact revisions and evidence status.
+
 ## Related Docs
 
 - `docs/interfaces/server-cli-env.md`

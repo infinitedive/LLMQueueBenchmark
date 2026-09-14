@@ -1,6 +1,8 @@
 # LLMQueueBenchmark Architecture
 
-This document provides a top-level map of domains and package layering across the two repositories in this workspace.
+This document records intended domains and package layering across the two component repositories. Consult it for boundary decisions; ordinary edits do not require a full architecture review.
+
+The component repositories are cloned inside this parent KB workspace and retain independent Git histories. For the current investigation and implementation discrepancies, see [current state](docs/current-state.md).
 
 ## System Context
 
@@ -149,12 +151,11 @@ Disallowed coupling:
 
 Guideline: prefer testing at architectural boundaries over testing internal wiring details that are likely to change.
 
-## Evolution Rules
+## Evolution
 
-When architecture-relevant behavior changes:
-1. Update the authoritative topic doc first (`docs/interfaces/*`, `docs/data-models/*`, `docs/principles/*`, or `docs/architecture/*`).
-2. Update this file only if domain boundaries, layering, or top-level contracts changed.
-3. Keep invariants here stable and non-redundant; avoid copying detailed rules that already have a dedicated home.
+Update affected topic contracts with behavioral changes. Update this map when
+domain boundaries or layering change. A documented invariant describes intent;
+verify the relevant implementation before treating it as an observed fact.
 
 ## Source of Truth Index
 

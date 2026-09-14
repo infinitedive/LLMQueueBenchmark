@@ -1,54 +1,7 @@
 ---
-description: LLM Queue Benchmark control rules
+description: Entry point for the LLMQueueBenchmark parent workspace
 alwaysApply: true
 ---
 
-# LLM Queue Benchmark Agent Policy
-
-Scope: workspace contains `llm-benchmark-client` (`llm_bench`) and `llm-scheduler-server` (`batching_scheduler`).
-
-## References (canonical docs)
-- Routing + operating rules: `AGENTS.md`
-- Top-level architecture + layering: `ARCHITECTURE.md`
-- Task-based navigation: `docs/index.md`
-- Pipeline + telemetry flow: `docs/architecture/end-to-end-flow.md`
-- Module maps: `docs/references/llm-benchmark-client-map.md`, `docs/references/llm-scheduler-server-map.md`
-- Interfaces: `docs/interfaces/client-cli.md`, `docs/interfaces/server-cli-env.md`, `docs/interfaces/http-api.md`
-- Metrics semantics: `docs/principles/metrics-semantics.md`
-- Artifacts + schemas: `docs/principles/artifact-contract.md`, `docs/data-models/run-artifacts.md`
-- Data models: `docs/data-models/requestrecord.md`, `docs/data-models/telemetry-schema.md`
-- Extension points and boundaries: `docs/architecture/client.md`, `docs/architecture/server.md`, `docs/architecture/dependency-boundaries.md`
-
-## Definitions
-- Data model: any schema/struct/DTO/JSON payload persisted or transmitted (e.g., `RequestRecord`, artifact schemas).
-- Interface: CLI args, env vars, HTTP endpoints, or JSON contract.
-- Extension point: scheduler/workload/arrival pattern plugin or registry.
-- Module boundary change: moving code across repos or introducing new cross-repo imports.
-- Non-behavioral change: formatting, comments/docstrings, or renames that do not alter schema, output, or runtime behavior.
-
-## Required consultation
-Before changing any of the following, read `docs/index.md` task routes and the corresponding canonical docs; cite the consulted file paths in your response:
-- Tests
-- Data models
-- Metrics semantics/math or timestamps/time logic
-- Interfaces or extension points
-- Assumptions and architecture constraints
-
-Skip consultation for non-behavioral changes or dependency bumps without API change.
-
-If legacy docs conflict with code or canonical docs, follow code and canonical docs, note the discrepancy, and update canonical docs as needed.
-
-## Architectural separation
-Preserve separation between client and scheduler. Do not add new cross-repo imports or shared runtime modules. Data exchange stays via documented interfaces.
-Allowed: shared docs, examples, or CI/config that do not introduce runtime coupling.
-
-## Metrics/performance safety
-For any change that alters metric computation or timing, trace definitions and plumbing end-to-end (name, units, source fields) across client/server before changing behavior; otherwise do not proceed.
-Non-behavioral changes do not require tracing.
-
-## Benchmark artifacts
-Metrics, summaries, plots, and CSVs must be produced via the canonical `llm-benchmark-client` pipeline. If asked to produce artifacts, use documented client commands and cite them; do not handcraft artifacts or write ad-hoc scripts.
-Allowed: temporary, non-committed scratch analysis for debugging, clearly labeled as non-artifact.
-
-## Assumptions
-If assumptions are required and not already documented in canonical architecture/principles docs, list them explicitly and note that confirmation is required before committing.
+Use the root `AGENTS.md` as the shared project instruction source.
+It identifies the nested repositories and routes to relevant KB documents.

@@ -1,102 +1,49 @@
-# LLMQueueBenchmark Agent Guide
+# LLMQueueBenchmark
 
-This file is the entry point for agents. It is intentionally short and acts as a table of contents for repository knowledge.
+## Purpose and workspace
 
-## Workspace Identity
+This parent repository holds the project's working knowledge and research context.
+The client and server are cloned inside it as independent Git repositories:
+- `llm-benchmark-client/`: load generation, client measurements, reports.
+- `llm-scheduler-server/`: scheduling, inference, server telemetry.
 
-This workspace contains a two-repo benchmark system:
-- `llm-benchmark-client`: load generation, telemetry scraping, analysis, artifacts.
-- `llm-scheduler-server`: inference serving, batching/scheduling, streaming, metrics export.
+The project began as an educational investigation of scheduling and batching.
+Preserve an inspectable experimental system; maximizing throughput alone does
+not satisfy that purpose. Client/server integration stays through documented
+interfaces, without runtime cross-imports.
 
-Communication between repos is via documented interfaces (HTTP endpoints, CLI/env configuration, artifact contracts). Do not create runtime cross-imports between repos.
+## Context when needed
 
-## Start Here
+- Resuming research or interpreting results: `docs/current-state.md`.
+- Architecture decisions and boundaries: `ARCHITECTURE.md`.
+- Measurement definitions: `docs/principles/metrics-semantics.md`.
+- Benchmark execution and claim acceptance: `docs/operations/ml-sys-report-methodology.md`.
+- Setup and repo-specific environments: `docs/operations/local-dev.md`.
+- Other topics: `docs/index.md`.
 
-1. Read `ARCHITECTURE.md` for the top-level domain map and package layering.
-2. Read `docs/index.md` for detailed documentation index.
-3. Use repo-specific references:
-   - `docs/references/llm-benchmark-client-map.md`
-   - `docs/references/llm-scheduler-server-map.md`
+These are reference routes, not a mandatory reading sequence. Inspect the code
+and documents relevant to the task. Completed plans describe historical work.
 
-## Knowledge Base Map
+## Working contract
 
-### Core
-- `ARCHITECTURE.md`: top-level architecture map for both repos.
-- `docs/index.md`: full navigation index.
-- `docs/glossary.md`: canonical definitions and shared terminology.
+Use the affected component's virtualenv interpreter (or activate that virtualenv).
+Keep changes in the appropriate Git repository. This KB is maintained separately;
+do not copy private working notes into public component repositories by default.
 
-### Principles and Invariants
-- `docs/principles/client-server-separation.md`: boundary rules and ownership split.
-- `docs/principles/metrics-semantics.md`: canonical metric definitions and units.
-- `docs/principles/artifact-contract.md`: benchmark output contract and generation rules.
+Choose the implementation and verification procedure appropriate to the task.
+For implementation work, continue through relevant available checks and fixes
+within the authorized scope. Report unavailable checks explicitly; a committed
+patch is not a verified result. User instructions determine action permissions.
 
-### Interfaces (Control Surfaces)
-- `docs/interfaces/client-cli.md`: `llm-benchmark-client` CLI contract.
-- `docs/interfaces/server-cli-env.md`: `llm-scheduler-server` CLI and environment contract.
-- `docs/interfaces/http-api.md`: HTTP API endpoints and payload semantics.
+Official benchmark artifacts come from the canonical client pipeline.
+Temporary diagnostic probes are appropriate when clearly distinguished from
+report evidence. Preserve existing run outputs.
 
-### Data Models and Artifacts
-- `docs/data-models/requestrecord.md`: request-level benchmark record schema.
-- `docs/data-models/run-artifacts.md`: per-run and sweep artifact schemas.
-- `docs/data-models/telemetry-schema.md`: scraped/derived telemetry schema.
+Code establishes implemented behavior; research contracts establish intended
+behavior. Resolve discrepancies explicitly rather than redefining intent to
+match a bug. Claims about scheduling require evidence of actual inference
+execution, not only queue configuration or artifact presence.
 
-### Architecture Deep Dives
-- `docs/architecture/client.md`: client internals and module boundaries.
-- `docs/architecture/server.md`: server internals and module boundaries.
-- `docs/architecture/end-to-end-flow.md`: request, telemetry, and artifact flow.
-- `docs/architecture/dependency-boundaries.md`: allowed dependency directions.
-
-### Operations
-- `docs/operations/local-dev.md`: local setup and runbook.
-- `docs/operations/vllm-gpu-settings.md`: vLLM GPU-tier runtime presets and requirements.
-- `docs/operations/benchmark-recipes.md`: canonical benchmark command recipes.
-- `docs/operations/debugging-playbooks.md`: troubleshooting procedures.
-- `docs/operations/release-checklist.md`: pre-release and verification checklist.
-
-### Planning and Debt
-- `docs/plans/active/`: in-progress execution plans.
-- `docs/plans/completed/`: archived execution plans and outcomes.
-- `docs/plans/tech-debt.md`: tracked technical debt items.
-
-## Task Routing
-
-Use this section to find required context before making changes.
-
-- Metrics math, timestamps, or latency semantics:
-  - `docs/principles/metrics-semantics.md`
-  - `docs/data-models/requestrecord.md`
-  - `docs/data-models/telemetry-schema.md`
-- HTTP endpoints or payload contracts:
-  - `docs/interfaces/http-api.md`
-  - `docs/architecture/server.md`
-- CLI/env changes:
-  - `docs/interfaces/client-cli.md`
-  - `docs/interfaces/server-cli-env.md`
-- Artifact/reporting changes:
-  - `docs/principles/artifact-contract.md`
-  - `docs/data-models/run-artifacts.md`
-- Scheduling/batching behavior:
-  - `docs/architecture/server.md`
-  - `docs/architecture/dependency-boundaries.md`
-  - Scheduler invariants are documented in `docs/architecture/server.md` (`Scheduler Invariants`).
-- Load generation/arrival/workload behavior:
-  - `docs/architecture/client.md`
-  - `docs/architecture/end-to-end-flow.md`
-
-## Operating Rules
-
-- Preserve client/server architectural separation.
-- Activate the repo-specific virtualenv before running Python commands (`llm-benchmark-client/.venv` or `llm-scheduler-server/.venv`).
-- Keep data and interface changes documented in `docs/interfaces/*` and `docs/data-models/*`.
-- Keep metric definitions consistent across client and server docs.
-- Benchmark artifacts must be generated by the canonical client pipeline, not ad-hoc scripts.
-- When behavior changes, update affected docs in the same change.
-
-## Documentation Freshness
-
-When making a behavioral change, update:
-1. Relevant architecture or interface doc.
-2. Relevant data model or metric semantics doc.
-3. Any plan/debt record if the change resolves or introduces tracked debt.
-
-If code and docs disagree, code is source of truth until docs are updated.
+Update affected contracts when behavior changes. For research work, leave a
+concise current state: supported findings, unresolved questions, evidence
+references, and the next discriminating action.
