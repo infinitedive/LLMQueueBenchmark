@@ -9,6 +9,7 @@ Use this file to find the single source of truth for architecture, interfaces, m
 - [Agent entry point](../AGENTS.md): purpose and working contract.
 - [Current state](current-state.md): investigation status and evidence.
 - [Architecture](../ARCHITECTURE.md): intended system boundaries.
+- [Symphony orchestration](operations/symphony.md): multi-agent dispatcher setup and operating model.
 
 Use the references relevant to the task; the lists below are not reading orders.
 
@@ -82,6 +83,7 @@ Relevant references:
 - `architecture/dependency-boundaries.md`
 
 ### Operations
+- `operations/symphony.md`
 - `operations/ml-sys-paper-claim-ledger.md` (historical numeric provenance; see current status)
 - `operations/ml-sys-paper-draft.md` (draft; see current status)
 - `operations/local-dev.md`
